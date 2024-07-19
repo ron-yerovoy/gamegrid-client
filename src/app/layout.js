@@ -1,23 +1,23 @@
-import { Inter } from "next/font/google";
-import Header from "./components/topBar"
-import Footer from "./components/bottomBar"
-import "./globals.css";
+import { Inter } from 'next/font/google'
+import Header from './components/topBar'
+import Footer from './components/bottomBar'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: "GameGrid",
-  description: "GameGrid a platfom for gaming lovers",
-};
+  title: 'GameGrid',
+  description: 'GameGrid a platfom for gaming lovers',
+}
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-main-background bg-no-repeat bg-cover">
-          <Header />
-          {children}
-          <Footer/>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
-  );
+  )
 }
