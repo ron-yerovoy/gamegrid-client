@@ -1,8 +1,8 @@
-'use client';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+'use client'
+import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -14,37 +14,32 @@ export default function Register() {
     confirmPassword: '',
     gender: '',
     birthDate: '',
-  });
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleRegister = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
-  };
+    e.preventDefault()
+    console.log('Form Data:', formData)
+  }
 
   const handleGoogleSignIn = () => {
-    console.log('Google Sign-In');
-  };
+    console.log('Google Sign-In')
+  }
 
   return (
     <main className="relative flex min-h-screen items-center justify-center p-6">
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute inset-0 w-full h-full object-cover"
-      >
+      <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
         <source src="636f8c0b-ce4b-4587-954c-5102a9708b16.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      
+
       <div className="relative z-10 w-full max-w-lg p-8 space-y-6 bg-gray-900 bg-opacity-75 rounded-lg shadow-lg border-2 border-gray-700">
         <div className="flex justify-center mb-4">
           <FontAwesomeIcon icon={faUserPlus} size="3x" className="text-white" />
@@ -53,7 +48,7 @@ export default function Register() {
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
             <label htmlFor="firstName" className="block text-sm font-medium text-gray-300">
-              First Name
+              First Name:
             </label>
             <input
               id="firstName"
@@ -67,7 +62,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="lastName" className="block text-sm font-medium text-gray-300">
-              Last Name
+              Last Name:
             </label>
             <input
               id="lastName"
@@ -81,7 +76,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="nickname" className="block text-sm font-medium text-gray-300">
-              Nickname
+              Nickname:
             </label>
             <input
               id="nickname"
@@ -95,7 +90,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-              E-mail
+              E-mail:
             </label>
             <input
               id="email"
@@ -109,7 +104,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              Password
+              Password:
             </label>
             <input
               id="password"
@@ -123,7 +118,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300">
-              Confirm Password
+              Confirm Password:
             </label>
             <input
               id="confirmPassword"
@@ -137,7 +132,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="gender" className="block text-sm font-medium text-gray-300">
-              Gender
+              Gender:
             </label>
             <select
               id="gender"
@@ -155,7 +150,7 @@ export default function Register() {
           </div>
           <div>
             <label htmlFor="birthDate" className="block text-sm font-medium text-gray-300">
-              Birth Date
+              Birth Date:
             </label>
             <input
               id="birthDate"
@@ -171,7 +166,7 @@ export default function Register() {
             type="submit"
             className="w-full py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500"
           >
-            Register
+            Register:
           </button>
           <button
             type="button"
@@ -184,5 +179,5 @@ export default function Register() {
         </form>
       </div>
     </main>
-  );
+  )
 }

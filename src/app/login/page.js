@@ -1,31 +1,26 @@
-'use client';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+'use client'
+import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLogin = (e) => {
-    e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
+    e.preventDefault()
+    console.log('Email:', email)
+    console.log('Password:', password)
+  }
 
   const handleGoogleSignIn = () => {
-    console.log('Google Sign-In');
-  };
+    console.log('Google Sign-In')
+  }
 
   return (
     <main className="relative flex min-h-screen items-center justify-center p-6">
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute inset-0 w-full h-full object-cover"
-      >
+      <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
         <source src="636f8c0b-ce4b-4587-954c-5102a9708b16.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -37,7 +32,7 @@ export default function Login() {
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-              E-mail
+              E-mail:
             </label>
             <input
               id="email"
@@ -51,7 +46,7 @@ export default function Login() {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              Password
+              Password:
             </label>
             <input
               id="password"
@@ -86,5 +81,5 @@ export default function Login() {
         </form>
       </div>
     </main>
-  );
+  )
 }
