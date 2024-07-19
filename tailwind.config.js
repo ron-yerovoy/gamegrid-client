@@ -17,6 +17,9 @@ module.exports = {
         secondary: '#37474F',
         accent: '#357C38',
       },
+      fontFamily: {
+        display: ['Roboto Mono', 'monospace'],
+      },
     },
   },
   plugins: [],

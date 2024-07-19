@@ -14,7 +14,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-main-background bg-no-repeat bg-cover">
-        <Header />
+        <div className="bg-gradient-to-r from-teal-700 to-blue-900 shadow-lg">
+          <Header />
+        </div>
         {children}
         <Footer />
       </body>

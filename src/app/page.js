@@ -11,7 +11,7 @@ export default function Home() {
         </div>
       </div>
       <div>
-        <h1 className="p-1 relative top-[-120px] -py-1 -mt-20 items-center justify-center text-4xl font-extrabold text-transparent bg-clip-text bg-emerald-100 from-white via-gray-400 to-zinc-100 ">
+        <h1 className="font-display p-1 relative top-[-120px] -py-1 -mt-20 items-center justify-center text-4xl font-extrabold text-transparent bg-clip-text bg-emerald-100 from-white via-gray-400 to-zinc-100 ">
           Welcome to the GameGrid!
           <br />
           a platform for gamers
