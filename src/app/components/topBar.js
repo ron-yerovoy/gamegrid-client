@@ -35,20 +35,20 @@ const header = () => {
         </div>
         <div className="lg:flex md:flex lg: flex-1 items center justify-end font-normal hidden">
           <div className="flex-10">
-            <ul className="flex gap-8 mr-16 text-[18px]">
+            <ul className="flex gap-8 -mr-12 text-[18px]">
               <Link href="/">
-                <li> Home </li>
+                <li className=" hover:bg-cyan-800 hover:rounded"> Home </li>
               </Link>
 
               <Link href="/login">
-                <li> Login </li>
+                <li className=" hover:bg-cyan-800 hover:rounded"> Login </li>
               </Link>
 
               <Link href="/register">
-                <li>Register </li>
+                <li className=" hover:bg-cyan-800 hover:rounded">Register </li>
               </Link>
 
-              <Link href="about">
+              <Link href="about" className="hover:bg-cyan-800 hover:marker">
                 <li> About </li>
               </Link>
             </ul>
