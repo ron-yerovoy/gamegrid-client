@@ -28,7 +28,7 @@ export default function Home() {
         </Link>
         <Link
           href="/register"
-          className="shadow-lg h-8 px-6 font-semibold rounded-md border-spacing-6 text-white bg-blue-600"
+          className="shadow-lg h-8 px-6 font-semibold rounded-md border-spacing-6 text-white bg-green-600"
         >
           Sign in
         </Link>
