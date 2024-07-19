@@ -1,6 +1,8 @@
 // pages/login.js
 'use client'
 import { useState } from 'react'
+import BaseButton from '../components/baseButton'
+import Link from 'next/link'
 
 export default function Register() {
   const [email, setEmail] = useState('')
@@ -16,6 +18,9 @@ export default function Register() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <p>This is the register page</p>
+      <Link href="/">
+        <BaseButton className="">Home</BaseButton>
+      </Link>
     </main>
   )
 }

@@ -42,7 +42,7 @@ const header = () => {
               </Link>
 
               <Link href="/register">
-                <li>Sign up </li>
+                <li>Register </li>
               </Link>
 
               <Link href="about">
