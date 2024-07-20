@@ -1,10 +1,9 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:.
 version: 2.1
 
 orbs:
   node: circleci/node@5
   cypress: cypress-io/cypress@3
+
 jobs:
   build-test:
     executor:
@@ -36,6 +35,7 @@ workflows:
   my-workflow:
     jobs:
       - build-test
+
 #   test-node:
 #     # Install node dependencies and run tests
 #     executor: node/default
