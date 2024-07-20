@@ -41,7 +41,10 @@ const header = () => {
               </Link>
 
               <Link href="/login">
-                <li className=" hover:bg-cyan-800 hover:rounded"> Login </li>
+                <li data-cy="login_button_in_heade_menu" className=" hover:bg-cyan-800 hover:rounded">
+                  {' '}
+                  Login{' '}
+                </li>
               </Link>
 
               <Link href="/register">

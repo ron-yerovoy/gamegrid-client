@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+export {}
+
+Cypress.Commands.add('dataCy', (value, myTimeout = 10000) => {
+  return cy.get(`[data-cy="${value}"]`, { timeout: myTimeout })
+})
