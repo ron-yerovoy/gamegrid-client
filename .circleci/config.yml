@@ -6,7 +6,8 @@ orbs:
   node: circleci/node@5
 jobs:
   build-test:
-    executor: node/default
+    executor: 
+      name: node/default
     steps:
       - checkout
       - run:
