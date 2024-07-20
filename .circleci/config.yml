@@ -18,8 +18,8 @@ jobs:
           name: run build
           command: npm run build
       - cypress/run:
-          start-command: npm run start
-          cypress-command: npx cypress run
+          start: npm run start
+          command: npx cypress run
       - run:
           name: run lint
           command: npm run lint
