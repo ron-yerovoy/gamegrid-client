@@ -36,9 +36,6 @@ jobs:
               libcanberra-gtk* \
               libnss3-tools
       - run:
-          name: start dev for cypress
-          command: npm run dev &
-      - run:
           name: run build
           command: |
             set -o pipefail
@@ -47,6 +44,7 @@ jobs:
           name: run tests
           command: |
             set -o pipefail
+            npm run dev &
             npx cypress run
       - run:
           name: run lint
