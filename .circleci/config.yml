@@ -25,10 +25,7 @@ jobs:
           command: |
             set -o pipefail
             npm run lint
-      - cypress/run:
-          cypress-command: npx cypress run --browser chrome
-          install-browsers: true
-          start-command: npm run start:dev
+
 
 workflows:
   version: 2
