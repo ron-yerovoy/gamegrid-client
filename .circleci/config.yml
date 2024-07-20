@@ -17,7 +17,7 @@ jobs:
       - run:
           name: run build
           command: npm run build
-      -run:
+      - run:
           name: run dev
           command: npm run dev
       - run:
