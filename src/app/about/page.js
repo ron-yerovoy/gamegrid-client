@@ -1,10 +1,10 @@
 'use client'
 import Header from '../components/topBar'
-import { UseEffect, UseState } from 'react'
-export default function about() {
-  const [data, setData] = UseState(null)
+import { useEffect, useState } from 'react'
+export default function About() {
+  const [data, setData] = useState(null)
 
-  UseEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       //   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about`)
       const res = await fetch('http://localhost:3001/api/about')
