@@ -18,6 +18,7 @@ jobs:
           name: run build
           command: npm run build
       - run:
+          name: run test
           start: npm run dev
           command: npx cypress run
       - run:
