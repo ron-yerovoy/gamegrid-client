@@ -4,7 +4,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@5
-
+  cypress: cypress-io/cypress@3
 jobs:
   build-test:
     executor:
@@ -17,9 +17,9 @@ jobs:
       - run:
           name: run build
           command: npm run build
-      - run:
-          name: run tests
-          command: npx cypress run
+      - cypress/run:
+          start-command: npm run start
+          cypress-command: npx cypress run
       - run:
           name: run lint
           command: npm run lint
