@@ -23,7 +23,7 @@ jobs:
       - run:
           name: run lint
           command: npm run lint
-
+    
 workflows:
   version: 2
   my-workflow:
