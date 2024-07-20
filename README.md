@@ -61,7 +61,7 @@ This is the client-side application for GameGrid, a social network for gamers. I
     npm run test
     ```
 
-## More Explanations About Using Your Project
+## More Explanations About Using Our Project
 - The client application communicates with the server for dynamic content.
 - The login page is a template for future authentication features.
 - The about page content is fetched from the server.
