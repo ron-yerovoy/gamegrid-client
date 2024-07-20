@@ -18,6 +18,9 @@ jobs:
           name: run build
           command: npm run build
       - run:
+          name: run dependencies
+          command: apt-get install libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb
+      - run:
           name: run tests
           command: npx cypress run
       - run:
