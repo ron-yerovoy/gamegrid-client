@@ -26,6 +26,11 @@ jobs:
             set -o pipefail
             npm run build
       - run:
+          name: run tests
+          command: |
+            set -o pipefail
+            npm run test
+      - run:
           name: run lint
           command: |
             set -o pipefail
