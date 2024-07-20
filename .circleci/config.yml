@@ -32,8 +32,8 @@ jobs:
             npm run test
       - run:
           name: run test
-          start: npm run dev
           command: npx cypress run
+          start: npm run dev
       - run:
           name: run lint
           command: |
