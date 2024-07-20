@@ -41,12 +41,10 @@ jobs:
             set -o pipefail
             npm run build
       - run:
-          name: start dev for cypress
-          command: npm run dev &
-      - run:
           name: run tests
           command: |
             set -o pipefail
+            npm run dev &
             npx cypress run
       - run:
           name: run lint
