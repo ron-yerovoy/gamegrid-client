@@ -25,8 +25,7 @@ jobs:
     steps:
     - checkout
     - cypress/run:
-        name: run cypress
-        command: npx run cypress
+        cypress-command: npx cypress run
 
 workflows:
   version: 2
