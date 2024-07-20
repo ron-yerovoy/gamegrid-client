@@ -20,21 +20,17 @@ jobs:
       - run:
           name: run lint
           command: npm run lint
-  cypress-run:
-    executor: cypress/base:14
-    steps:
-    - checkout
-    - cypress/run:
-        cypress-command: npx cypress run --browser chrome
-        install-browsers: true
-        start-command: npm run start:dev
+      - cypress/run:
+          cypress-command: npx cypress run --browser chrome
+          install-browsers: true
+          start-command: npm run start:dev
+    
 
 workflows:
   version: 2
   my-workflow:
     jobs:
       - build-test
-      - cypress-run
 #   test-node:
 #     # Install node dependencies and run tests
 #     executor: node/default
