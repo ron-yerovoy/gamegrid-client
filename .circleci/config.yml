@@ -12,13 +12,19 @@ jobs:
       - checkout
       - run:
           name: install dependencies
-          command: npm install
+          command: |
+            set -o pipefail
+            npm install
       - run:
           name: run build
-          command: npm run build
+          command: |
+            set -o pipefail
+            npm run build
       - run:
           name: run lint
-          command: npm run lint
+          command: |
+            set -o pipefail
+            npm run lint
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
