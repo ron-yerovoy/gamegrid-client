@@ -25,7 +25,9 @@ jobs:
           command: |
             set -o pipefail
             npm run lint
-
+      - run:
+          name: run Cypress tests
+          command: npm run test
 
 workflows:
   version: 2
