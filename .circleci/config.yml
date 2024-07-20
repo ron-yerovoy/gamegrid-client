@@ -1,9 +1,9 @@
 # This config was automatically generated from your source code
 # Stacks detected: deps:node:.
-version: 2.1/
+version: 2.1
 
 orbs:
-  node: circleci/node@5.2
+  node: circleci/node@5
 
 workflows:
   my-workflow:
