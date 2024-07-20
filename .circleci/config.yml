@@ -7,7 +7,8 @@ orbs:
 
 workflows:
   my-workflow:
-    - build-test
+    job:
+      - build-test
 jobs:
   build-test:
     executor:
