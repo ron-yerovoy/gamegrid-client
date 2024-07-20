@@ -1,4 +1,8 @@
-const { defineConfig } = require("cypress");
+import * as dotenv from 'dotenv'
+
+const { defineConfig } = require('cypress')
+
+dotenv.config({ path: '.env.local' })
 
 module.exports = defineConfig({
   e2e: {
@@ -6,4 +10,4 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
-});
+})
