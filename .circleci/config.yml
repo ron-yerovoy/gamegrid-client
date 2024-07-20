@@ -16,13 +16,13 @@ jobs:
           command: npm install
       - run:
           name: run build
-          command: npm build
+          command: npm run build
       - run:
           name: run tests
           command: npx cypress run
       - run:
           name: run lint
-          command: npm lint
+          command: npm run lint
 
 workflows:
   version: 2
