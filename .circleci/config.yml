@@ -18,17 +18,16 @@ jobs:
           name: run build
           command: npm run build
       - run:
-          name: run tests
-          command: npx cypress run
-      - run:
           name: run lint
           command: npm run lint
-    
+
 workflows:
   version: 2
   my-workflow:
     jobs:
       - build-test
+      - cypress/run
+        start-command: 'npm run start'
 #   test-node:
 #     # Install node dependencies and run tests
 #     executor: node/default
