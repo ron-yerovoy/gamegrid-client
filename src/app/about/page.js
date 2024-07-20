@@ -15,14 +15,14 @@ export default function About() {
     fetchData()
   }, [])
 
-  //   if (!data) {
-  //     document.getElementById('data').innerHTML = 'Loading...'
-  //   }
+  if (!data) {
+    return <div>Loading...</div>
+  }
   return (
     <div className="">
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <h1>Header</h1>
-        <p id="data">{data ? data : 'Loading...loadinG'}</p>
+        <p>{data.aboutText}</p>
         <p>Some information about us.</p>
       </div>
     </div>
