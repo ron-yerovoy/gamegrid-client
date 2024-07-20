@@ -18,11 +18,15 @@ jobs:
           name: run build
           command: npm run build
       - run:
-          start: npm run dev
-          command: npx cypress run
-      - run:
           name: run lint
           command: npm run lint
+  cypress-run:
+    executor: cypress/base:14
+    steps:
+    - checkout
+    - cypress/run:
+        name: run cypress
+        command: npx run cypress
 
 workflows:
   version: 2
