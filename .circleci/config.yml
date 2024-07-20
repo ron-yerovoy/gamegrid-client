@@ -26,7 +26,7 @@ workflows:
   my-workflow:
     jobs:
       - build-test
-      - cypress/run
+      - cypress/run:
         start-command: npm run start
 #   test-node:
 #     # Install node dependencies and run tests
