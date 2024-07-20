@@ -3,7 +3,7 @@
 version: 2.1/
 
 orbs:
-  node: circleci/node@5
+  node: circleci/node@5.2
 
 workflows:
   my-workflow:
