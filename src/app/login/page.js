@@ -2,18 +2,12 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-'use client'
-import { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -41,12 +35,9 @@ export default function Login() {
   const handleGoogleSignIn = () => {
     console.log('Google Sign-In')
   }
-    console.log('Google Sign-In')
-  }
 
   return (
     <main className="relative flex min-h-screen items-center justify-center p-6">
-      <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
       <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
         <source src="636f8c0b-ce4b-4587-954c-5102a9708b16.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -71,18 +62,23 @@ export default function Login() {
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div>
+          <div className="relative">
             <label htmlFor="password" className="block text-sm font-medium text-gray-300">
               Password:
             </label>
             <input
               id="password"
               name="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEyeSlash : faEye}
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 cursor-pointer"
             />
           </div>
           <button
@@ -108,6 +104,5 @@ export default function Login() {
         </form>
       </div>
     </main>
-  )
   )
 }
