@@ -13,22 +13,23 @@ export default function Login() {
     e.preventDefault()
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://localhost:3001/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: email, password: password }),
     })
 
     const data = await response.json()
 
     if (response.ok) {
-      console.log('Login successful:', data)
-      // ניתוב לדף הבית לאחר הצלחה
-      window.location.href = '/'
+      console.log('Login successful:\n', data)
+      // Redirect to home page on success
+      alert(JSON.stringify(data))
+      window.location.href = '/toBeContinued'
     } else {
-      console.error('Login failed:', data)
+      console.log('Login failed:\n', data.error)
     }
   }
 
