@@ -5,10 +5,6 @@ version: 2.1
 orbs:
   node: circleci/node@5
 
-workflows:
-  my-workflow:
-    job:
-      - build-test
 jobs:
   build-test:
     executor:
@@ -27,6 +23,12 @@ jobs:
       - run:
           name: run lint
           command: npm lint
+
+workflows:
+  version: 2
+  my-workflow:
+    jobs:
+      - build-test
 #   test-node:
 #     # Install node dependencies and run tests
 #     executor: node/default
