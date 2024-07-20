@@ -32,9 +32,7 @@ workflows:
   my-workflow:
     jobs:
       - build-test
-      - cypress-run:
-          requires:
-            - build-test
+      - cypress-run
 #   test-node:
 #     # Install node dependencies and run tests
 #     executor: node/default
