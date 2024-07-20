@@ -42,7 +42,7 @@ jobs:
             npm run build
       - run:
           name: start dev for cypress
-          command: npm run start &
+          command: npm run dev &
       - run:
           name: run tests
           command: |
