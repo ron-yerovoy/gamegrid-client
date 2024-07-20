@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GameGrid Client
 
-## Getting Started
+## Project Description
+This is the client-side application for GameGrid, a social network for gamers. It provides a user-friendly interface for gamers to connect, share, and compete.
 
-First, run the development server:
+## Deliverables
+1. A Next.js client application.
+2. Pages:
+    - Home page with navigation bar.
+    - About page with content from the server.
+    - Login page with basic validation.
+3. Linting and testing setup using ESLint and Cypress.
+4. CI/CD pipeline for automated testing and deployment.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to Install and Run Your Project
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- Git
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Installation
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/nextjs-client.git
+    cd nextjs-client
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
 
-## Learn More
+### Running the Client
+1. Start the development server:
+    ```sh
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2. The client application should now be running on `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Building for Production
+1. Build the project:
+    ```sh
+    npm run build
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. Start the production server:
+    ```sh
+    npm start
+    ```
 
-## Deploy on Vercel
+### Linting and Testing
+1. Run ESLint:
+    ```sh
+    npm run lint
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Run Cypress tests:
+    ```sh
+    npm run test
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## More Explanations About Using Your Project
+- The client application communicates with the server for dynamic content.
+- The login page is a template for future authentication features.
+- The about page content is fetched from the server.
+
