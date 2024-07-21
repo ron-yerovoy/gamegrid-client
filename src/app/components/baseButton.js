@@ -9,7 +9,7 @@ const BaseButton = ({ onClick, children, className, disabled = false }) => {
     <button
       type="button"
       onClick={onClick}
-      className={`bg-accent hover:bg-emerald-950 text-white mx-2 py-2 px-4 font-buttonfont ${className} ${
+      className={`bg-accent hover:bg-emerald-950 text-white mx-2 py-2 px-4 font-rajdhani ${className} ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}
       disabled={disabled}

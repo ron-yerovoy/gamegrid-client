@@ -20,7 +20,7 @@ export default function About() {
   //   }
   return (
     <div className="">
-      <div className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="flex min-h-screen flex-col items-center justify-between p-24 font-rajdhani">
         <h1>Header</h1>
         <p id="data">{data ? data : 'Loading...loadinG'}</p>
         <p>Some information about us.</p>

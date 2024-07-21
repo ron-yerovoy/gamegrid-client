@@ -19,7 +19,7 @@ module.exports = {
       },
       fontFamily: {
         display: ['Roboto Mono', 'monospace'],
-        buttonfont: ['Rajdhani','sans-serif'],
+        rajdhani: ['Rajdhani', 'sans-serif'],
       },
     },
   },
