@@ -1,11 +1,10 @@
-'use client'
-import React,{useState, useEffect} from "react"
+
 /* use for Links 
     <Link href='ref'>
      <BaseButton>go to ref</BaseButton>
     </Link>
 */
-const BaseButton = ({ onClick, children, className, disabled = false, name}) => {
+export default function BaseButton({ onClick, children, className, disabled = false, name}) {
   
   return (
     <button
@@ -23,4 +22,4 @@ const BaseButton = ({ onClick, children, className, disabled = false, name}) => 
     </button>
   )
 }
-export default BaseButton
+

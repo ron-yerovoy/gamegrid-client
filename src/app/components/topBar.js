@@ -1,18 +1,12 @@
-'use client'
+
 import Link from 'next/link'
 import BaseButton from './baseButton'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
 
-const Header = () => {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+export default function Header(){
 
   return (
-    <nav className='flex mt-2 mx-2 items-center'>
+    <nav className='flex'>
       <Link href="/">
           <Image
             src="/GameGridOnlyLogo.png"
@@ -21,9 +15,9 @@ const Header = () => {
             alt="GameGrid Logo"
           />
       </Link>
-      <div className='ml-auto'>
+      <div>
         <Link href="/about">
-            <BaseButton name="about" className="mx-2 mt-2">
+            <BaseButton name="about">
               About
             </BaseButton>
         </Link>
@@ -32,4 +26,4 @@ const Header = () => {
   )
 }
 
-export default Header
+
