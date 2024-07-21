@@ -39,10 +39,10 @@ export default function Login() {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center p-6">
-      <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
+      {/* <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
         <source src="636f8c0b-ce4b-4587-954c-5102a9708b16.mp4" type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video> */}
       <div className="relative z-10 w-full max-w-md p-8 space-y-6 bg-gray-900 bg-opacity-75 rounded-lg shadow-lg border-2 border-gray-700">
         <div className="flex justify-center mb-4">
           <FontAwesomeIcon icon={faUser} size="3x" className="text-white" />
