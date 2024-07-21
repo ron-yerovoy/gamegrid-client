@@ -2,16 +2,35 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    console.log('Email:', email)
-    console.log('Password:', password)
+
+    // שליחת בקשת POST לשרת
+    const response = await fetch('http://localhost:3001/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      console.log('Login successful:\n', data)
+      // Redirect to home page on success
+      alert(JSON.stringify(data))
+      window.location.href = '/toBeContinued'
+    } else {
+      console.log('Login failed:\n', data.error)
+    }
   }
 
   const handleGoogleSignIn = () => {
@@ -32,7 +51,7 @@ export default function Login() {
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-              E-mail
+              E-mail:
             </label>
             <input
               id="email"
@@ -44,18 +63,23 @@ export default function Login() {
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div>
+          <div className="relative">
             <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              Password
+              Password:
             </label>
             <input
               id="password"
               name="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEyeSlash : faEye}
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 cursor-pointer"
             />
           </div>
           <button
