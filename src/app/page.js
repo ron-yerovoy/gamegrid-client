@@ -20,9 +20,10 @@ export default function Home() {
           by gamers
         </h1>
       </div>
-      <nav className="flex-auto space-x-20 py-2 px-0">
+      <nav>
         <Link href='/login'>
-          <BaseButton>
+          <BaseButton
+          name="login">
           Login
           </BaseButton>
         </Link>
