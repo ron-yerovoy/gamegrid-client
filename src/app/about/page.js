@@ -22,10 +22,9 @@ export default function About() {
     <div className="">
       <div className="flex min-h-screen flex-col items-center justify-between p-24 font-rajdhani">
         <h1>Header</h1>
-        <p>{data.aboutText}</p>
+        <p data-cy="about_text">{data.aboutText}</p>
         <p>Some information about us.</p>
       </div>
     </div>
   )
 }
-
