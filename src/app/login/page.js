@@ -5,35 +5,40 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Login() {
-  const [email, setEmail] = useState('')
+  const [nickMail, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [userData,setUserData] = useState(false)
   
-  // const [data, setData] = useState(null)
-  const handleLogin =  (e) => {
+  let input
+  if (nickMail.includes('@')) input=`?email=${nickMail}&password=${password}`
+  else input=`?nickname=${nickMail}&password=${password}`
+  
+  const handleLogin = async (e) => {
     e.preventDefault()
 
     // שליחת בקשת POST לשרת
-    const response =  fetch('http://localhost:3001/api/login', {
-      method: 'POST',
+    const response = await fetch(`http://localhost:3001/api/login/${input}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: email, password: password }),
+      // body: JSON.stringify({ email: email, password: password }),
       
     })
-    setUserData(response.json())
+    // console.log(';;;;;;;;;;;',{ email: email, password: password })
+    const data = await response.json()
+    console.log(';;;;;;;;;;;',data)
     
-    
-    console.log(';;;;;;;;;;;',userData)
+
     if (response.ok) {
-      console.log('Login successful:\n', userData)
+      console.log('Login successful:\n', data)
       // Redirect to home page on success
-      alert(JSON.stringify(userData))
-      window.location.href = '/toBeContinued'
+      alert(JSON.stringify(data))
+      // window.location.href = '/toBeContinued'
     } else {
-      console.log('Login failed:\n', userData.error)
+      alert(JSON.stringify(data))
+
+      console.log('Login failed:\n', data.error)
     }
   }
 
@@ -55,14 +60,13 @@ export default function Login() {
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-              E-mail:
+              E-mail\Nickname:
             </label>
             <input
               id="email"
               name="email"
-              type="email"
               required
-              value={email}
+              value={nickMail}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
             />
