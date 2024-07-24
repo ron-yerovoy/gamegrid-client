@@ -8,28 +8,32 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-
-  const handleLogin = async (e) => {
+  const [userData,setUserData] = useState(false)
+  
+  // const [data, setData] = useState(null)
+  const handleLogin =  (e) => {
     e.preventDefault()
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('http://localhost:3001/api/login', {
+    const response =  fetch('http://localhost:3001/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email: email, password: password }),
+      
     })
-
-    const data = await response.json()
-
+    setUserData(response.json())
+    
+    
+    console.log(';;;;;;;;;;;',userData)
     if (response.ok) {
-      console.log('Login successful:\n', data)
+      console.log('Login successful:\n', userData)
       // Redirect to home page on success
-      alert(JSON.stringify(data))
+      alert(JSON.stringify(userData))
       window.location.href = '/toBeContinued'
     } else {
-      console.log('Login failed:\n', data.error)
+      console.log('Login failed:\n', userData.error)
     }
   }
 

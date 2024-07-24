@@ -24,13 +24,13 @@ export default function Home() {
           href="/login"
           className="shadow-lg top-[-70px] h-8 px-8 font-semibold bg-green-800 rounded-md text-white"
         >
-          Register
+          Sign in
         </Link>
         <Link
           href="/register"
           className="shadow-lg h-12 px-8 font-semibold rounded-md border-spacing-6 text-white bg-green-800"
         >
-          Sign in
+          Register
         </Link>
       </nav>
     </main>
