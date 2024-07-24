@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const HomePageHeader1 = () => {
+const HomePageHeader = () => {
   const content = (
     <>
       <div className="lg:hidden block absolute top-16 w-full left-0 right-0 bg-slate-900">
@@ -56,4 +56,4 @@ const HomePageHeader1 = () => {
   )
 }
 
-export default HomePageHeader1
+export default HomePageHeader
