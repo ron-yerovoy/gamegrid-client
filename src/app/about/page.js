@@ -1,5 +1,5 @@
 'use client'
-import Header from '../components/topBar'
+import Header from '../components/Header'
 import { useEffect, useState } from 'react'
 export default function About() {
   const [data, setData] = useState(null)

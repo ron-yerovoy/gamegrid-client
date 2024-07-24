@@ -34,7 +34,7 @@ export default function Login() {
       console.log('Login successful:\n', data)
       // Redirect to home page on success
       alert(JSON.stringify(data))
-      // window.location.href = '/toBeContinued'
+      window.location.href = '/HomePage'
     } else {
       alert(JSON.stringify(data))
 
