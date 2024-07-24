@@ -1,36 +1,28 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Head>
-        <title>HomePage</title>
-        <meta name="description" content="Homepage with a centered navigation bar." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <div className="min-h-screen bg-gradient-to-r from-blue-900 to-blue-200">
       {/* Enhanced Navbar */}
       <header className="bg-gradient-to-r from-black to-blue-800 shadow-lg">
-        <nav className="container mx-auto flex items-center justify-between p-8">
-          <div className="text-white text-3xl font-bold">
-            MyLobby
-          </div>
-          <div className="flex-grow flex justify-center space-x-6">
+        <nav className="mx-auto flex items-center justify-between p-8">
+          <div className="text-white text-3xl font-bold">MyLobby</div>
+          <div className="flex-grow flex justify-center space-x-12">
             <a
               href="/HomePage/LeaderBoard"
-              className="text-white text-xl font-semibold py-3 px-6 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
+              className="text-white text-xl font-semibold py-3 px-10 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
             >
               Leaderboards
             </a>
             <a
-              href="/HomePage"
-              className="text-white text-xl font-semibold py-3 px-6 rounded-lg bg-blue-900 shadow-lg border-2 border-blue-800 transform scale-105"
+              href="/HomePage/Lobby"
+              className="text-white text-xl font-semibold py-3 px-10 rounded-lg bg-black shadow-lg hover:bg-blue-900 border-2 border-blue-800 transform scale-105"
             >
               Lobby
             </a>
             <a
               href="/HomePage/Squad"
-              className="text-white text-xl font-semibold py-3 px-6 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
+              className="text-white text-xl font-semibold py-3 px-10 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
             >
               Squad
             </a>
@@ -40,13 +32,12 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="flex flex-col items-center justify-center min-h-screen p-6 text-center">
-        <h1 className="text-6xl font-extrabold text-gray-900 mb-6">
-          Welcome to MyApp
-        </h1>
-        <p className="text-lg text-gray-700 mb-8">
-          Explore the features and pages of our amazing app!
-        </p>
-        <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+        <h1 className="text-6xl font-extrabold text-gray-900 mb-6">Welcome to MyApp</h1>
+        <p className="text-lg text-gray-700 mb-8">Explore the features and pages of our amazing app!</p>
+        <button
+          href="HomePage/Lobby"
+          className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+        >
           Get Started
         </button>
       </main>
@@ -58,5 +49,5 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
