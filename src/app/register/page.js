@@ -46,7 +46,7 @@ export default function Register() {
     }
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('/api/register', {
+    const response = await fetch('http://localhost:3001/api/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,12 +55,13 @@ export default function Register() {
     })
 
     const data = await response.json()
-
+    console.log('Registration successful:', data)
     if (response.ok) {
       console.log('Registration successful:', data)
       // ניתוב לדף הבית לאחר הצלחה
-      window.location.href = '/'
+      // window.location.href = '/'
     } else {
+      //if data.field ===nickname / email
       console.error('Registration failed:', data)
     }
   }
@@ -209,6 +210,7 @@ export default function Register() {
             />
           </div>
           <button
+            onClick={() => {}}
             type="submit"
             className="w-full py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500"
           >
