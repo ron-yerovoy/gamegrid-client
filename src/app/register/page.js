@@ -46,7 +46,7 @@ export default function Register() {
     }
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('http://localhost:3001/api/user', {
+    const response = await fetch('http://localhost:3001/api/user/insert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

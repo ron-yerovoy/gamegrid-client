@@ -20,15 +20,18 @@ export default function Home() {
           by gamers
         </h1>
       </div>
-      <nav>
-        <Link href='/login'>
-          <BaseButton
-          name="login">
-          Login
-          </BaseButton>
+      <nav className="flex-auto space-x-20 py-2 px-0">
+        <Link
+          href="/login"
+          className="shadow-lg top-[-70px] h-8 px-8 font-semibold bg-green-800 rounded-md text-white"
+        >
+          Sign in
         </Link>
-        <Link href='/register'>
-          <BaseButton>Register</BaseButton>
+        <Link
+          href="/register"
+          className="shadow-lg h-12 px-8 font-semibold rounded-md border-spacing-6 text-white bg-green-800"
+        >
+          Register
         </Link>
       </nav>
     </main>
