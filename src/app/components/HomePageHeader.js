@@ -1,65 +1,35 @@
-import Link from 'next/link'
+import React from 'react';
 
-const HomePageHeader = () => {
-  const content = (
-    <>
-      <div className="lg:hidden block absolute top-16 w-full left-0 right-0 bg-slate-900">
-        <ul className="text-center text-xl p-20">
-          <Link href="/LeaderBoard">
-            <li className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
-              {' '}
-              Leaderboardd{' '}
-            </li>
-          </Link>
-
-          <Link href="/HomePage">
-            <li className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
-              {' '}
-              HomePage{' '}
-            </li>
-          </Link>
-
-          <Link href="/Squad">
-            <li className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">Squadd</li>
-          </Link>
-
-          <Link href="/about">
-            <li className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded"> Lobbyy </li>
-          </Link>
-        </ul>
-      </div>
-    </>
-  )
+const HomeHeader = () => {
   return (
-    <nav>
-      <div className="h-10vh flex justify-between z-50 text-white lg:py-5 px-20 py-4 flex-1">
-        <div className="lg:flex md:flex flex-1 items-center justify-end font-normal hidden">
-          <div className="flex-10">
-            <ul className="flex gap-8 -mr-12 text-[18px]">
-              <Link href="/">
-                <li className="hover:bg-cyan-800 hover:rounded"> Home </li>
-              </Link>
+    <header className="bg-gradient-to-r from-black to-blue-800 shadow-lg">
+      <nav className="mx-auto flex items-center justify-between p-8">
 
-              <Link href="/login">
-                <li data-cy="login_button_in_heade_menu" className="hover:bg-cyan-800 hover:rounded">
-                  {' '}
-                  Login{' '}
-                </li>
-              </Link>
+        <div className="flex-grow flex justify-center space-x-12">
+          <a
+            href="/HomePage/LeaderBoard"
+            className="text-white text-xl font-semibold py-3 px-10 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
+          >
+            Leaderboards
+          </a>
+          <a
+            href="/HomePage/Squad"
+            className="text-white text-xl font-semibold py-3 px-10 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
+          >
+            Squad
+          </a>
+          <a
+            href="/HomePage"
+            className="text-white text-xl font-semibold py-3 px-10 rounded-lg bg-black hover:bg-blue-900 transition duration-300 transform hover:scale-105"
+          >
+            MyLobby
 
-              <Link href="/register">
-                <li className="hover:bg-cyan-800 hover:rounded">Register</li>
-              </Link>
-
-              <Link href="/about">
-                <li className="hover:bg-cyan-800 hover:marker"> About </li>
-              </Link>
-            </ul>
-          </div>
+          </a>
+          
         </div>
-      </div>
-    </nav>
-  )
+      </nav>
+    </header>
+  );
 }
 
-export default HomePageHeader
+export default HomeHeader;
