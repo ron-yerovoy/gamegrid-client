@@ -8,13 +8,16 @@ export default function Login() {
   const [nickMail, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  
+
   let input
-  if (nickMail.includes('@')) input=`?email=${nickMail}&password=${password}`
-  else input=`?nickname=${nickMail}&password=${password}`
-  
+  if (nickMail.includes('@')) input = `?email=${nickMail}&password=${password}`
+  else input = `?nickname=${nickMail}&password=${password}`
+
   const handleLogin = async (e) => {
     e.preventDefault()
+
+    //delay for loading components
+    await new Promise((resolve) => setTimeout(resolve, 2000))
 
     // שליחת בקשת POST לשרת
     const response = await fetch(`http://localhost:3001/api/login/${input}`, {
@@ -23,12 +26,10 @@ export default function Login() {
         'Content-Type': 'application/json',
       },
       // body: JSON.stringify({ email: email, password: password }),
-      
     })
     // console.log(';;;;;;;;;;;',{ email: email, password: password })
     const data = await response.json()
-    console.log(';;;;;;;;;;;',data)
-    
+    console.log(';;;;;;;;;;;', data)
 
     if (response.ok) {
       console.log('Login successful:\n', data)

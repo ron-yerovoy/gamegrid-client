@@ -6,10 +6,7 @@ const HomeLayout = ({ children }) => {
   return (
     <div>
       <HomeHeader />
-      <div className="flex">
-        <BurgerMenu />
-        {children}
-      </div>
+      <div className="flex">{children}</div>
     </div>
   )
 }

@@ -26,13 +26,10 @@ export default function Posts() {
       </Head>
 
       {/* Main Content */}
-      <div className="w-3/4 bg-gray-100 p-10">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-10">Posts</h1>
+      <div className="w-full bg-gray-100 p-10">
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-10 px-80">My Lobby</h1>
         {posts.map((post) => (
-          <div
-            key={post.id}
-            className="bg-white p-8 rounded-2xl shadow-xl mb-10 transform transition duration-500 hover:scale-105"
-          >
+          <div key={post.id} className="bg-white p-8 rounded-2xl shadow-xl mb-10  transition duration-500 ">
             <div className="flex items-center gap-4 mb-4">
               <div className="skeleton h-16 w-16 shrink-0 rounded-full bg-gray-300"></div>
               <div className="flex flex-col gap-4">
@@ -43,7 +40,7 @@ export default function Posts() {
             <p className="text-xl mb-4">{post.content}</p>
             <div className="flex items-center mt-4">
               <button
-                className="btn btn-primary text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-110"
+                className="btn btn-primary text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300  hover:scale-110"
                 onClick={() => handleLike(post.id)}
               >
                 Like ({post.likes})
