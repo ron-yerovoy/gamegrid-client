@@ -63,12 +63,7 @@ const Menu = () => {
               <IoMdContacts /> Contacts{' '}
             </a>
           </li>
-          <li>
-            <a className="text-primary">
-              {' '}
-              <AiOutlineMenu /> Menu{' '}
-            </a>
-          </li>
+
           <hr />
         </ul>
       </div>

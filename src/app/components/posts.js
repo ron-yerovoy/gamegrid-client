@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import 'daisyui'
+import Dardkmode from '../components/Dardmode'
 
 export default function Posts() {
   const [posts, setPosts] = useState([
@@ -27,6 +28,7 @@ export default function Posts() {
 
       {/* Main Content */}
       <div className="w-full bg-gray-100 p-10">
+        <Dardkmode />
         <h1 className="text-5xl font-extrabold text-gray-900 mb-10 px-80">My Lobby</h1>
         {posts.map((post) => (
           <div key={post.id} className="bg-white p-8 rounded-2xl shadow-xl mb-10  transition duration-500 ">

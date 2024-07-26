@@ -1,16 +1,32 @@
 import React from 'react'
 import Menu from '../components/Menu'
+import Link from 'next/link'
+import Dardkmode from '../components/Dardmode'
 export const HomeNav = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start  ">
         <Menu />
       </div>
-      <div className="navbar-center p-6   ">
-        <button className="btn btn-active btn-primary mr-10 ">Squad</button>
-        <button className="btn btn-active btn-ghost">Lobby</button>{' '}
-        <button className="btn btn-active btn-primary ml-10">LeaderBoard</button>
+      <div className="lg:flex md:flex lg: flex-1 items center justify-end font-normal hidden">
+        <div className="flex-10">
+          <ul className="flex gap-8 -mr-12 text-[18px]">
+            <Link href="/HomePage/LeaderBoard">
+              <li> LeaderBoard </li>
+            </Link>
+            <Link href="/HomePage/Lobby">
+              <li data-cy="login_button_in_heade_menu" className=" hover:bg-cyan-800 hover:rounded">
+                {' '}
+                Lobby{' '}
+              </li>
+            </Link>
+            <Link href="/HomePage/Squad">
+              <li className=" hover:bg-cyan-800 hover:rounded">Squad </li>
+            </Link>
+          </ul>
+        </div>
       </div>
+
       <div className="navbar-end flex-none gap-2">
         <div className="form-control">
           <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />

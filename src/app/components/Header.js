@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Alertss from '../components/Alert'
+import Dardkmode from '../components/Dardmode'
 
 const Header = () => {
   return (
@@ -8,6 +9,7 @@ const Header = () => {
         <div className="flex items-center flex-1">
           <span className="text-2xl font-bold">Logo</span>
         </div>
+        <Dardkmode />
 
         <div className="lg:flex md:flex lg: flex-1 items center justify-end font-normal hidden">
           <div className="flex-10">
