@@ -7,6 +7,8 @@ import { AiOutlineSetting } from 'react-icons/ai'
 import { FcAbout } from 'react-icons/fc'
 import { IoMdContacts } from 'react-icons/io'
 
+import Link from 'next/link'
+
 const Menu = () => {
   return (
     <div className="drawer">
@@ -27,22 +29,34 @@ const Menu = () => {
             </a>
           </li>
           <li>
-            <a className="text-primary">
-              {' '}
-              <FaHome /> Home{' '}
-            </a>
+            <Link href="/HomePage">
+              <li>
+                <a className="text-primary">
+                  {' '}
+                  <FaHome /> Home{' '}
+                </a>
+              </li>
+            </Link>
           </li>
           <li>
-            <a className="text-primary">
-              {' '}
-              <CgProfile /> My Profile{' '}
-            </a>
+            <Link href="/HomePage">
+              <li>
+                <a className="text-primary">
+                  {' '}
+                  <CgProfile /> My Profile{' '}
+                </a>
+              </li>
+            </Link>
           </li>
           <li>
-            <a className="text-primary ">
-              {' '}
-              <GiRank3 /> My Rank{' '}
-            </a>
+            <Link href="/HomePage/myRank">
+              <li>
+                <a className="text-primary">
+                  {' '}
+                  <GiRank3 /> My Rank{' '}
+                </a>
+              </li>
+            </Link>
           </li>
           <hr />
           <li>
