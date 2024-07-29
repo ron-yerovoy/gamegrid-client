@@ -18,8 +18,8 @@ module.exports = {
         accent: '#357C38',
       },
       fontFamily: {
-        display: ['Roboto Mono', 'monospace'],
-        rajdhani: ['Rajdhani', 'sans-serif'],
+        display: ['Roboto Mono'],
+        buttons: ['var(--font-rajdhani)'],
       },
     },
   },

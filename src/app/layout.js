@@ -1,9 +1,11 @@
-import { Inter } from 'next/font/google'
+import { Inter,Roboto_Mono, Rajdhani } from 'next/font/google'
 import Header from './components/topBar'
 import Footer from './components/bottomBar'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+const roboto_mono = Roboto_Mono({ subsets: ['latin'], variable: '--font-roboto-mono',})
+const rajdhani = Rajdhani({ subsets: ['latin'], weight: '300', variable: '--font-rajdhani', })
 
 export const metadata = {
   title: 'GameGrid',
@@ -13,12 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-        <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet"/>
-      </head> */}
-      <body className="bg-main-background bg-no-repeat bg-cover">
+      <body className='bg-main-background bg-no-repeat bg-cover'>
         <Header />
         {children}
         <Footer />

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import BaseButton from './components/baseButton'
+import { Roboto_Mono } from 'next/font/google'
+const roboto_mono = Roboto_Mono({ subsets: ['latin'], variable: '--font-roboto-mono',})
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -12,7 +14,7 @@ export default function Home() {
         </div>
       </div>
       <div>
-        <h1 className="font-display p-1 relative top-[-165px] -py-1 -mt-20 items-center justify-center text-4xl text-transparent bg-clip-text bg-emerald-100 from-white via-gray-400 to-zinc-100 ">
+        <h1 className={"font-display p-1 relative top-[-165px] -py-1 -mt-20 items-center justify-center text-4xl text-transparent bg-clip-text bg-emerald-100 from-white via-gray-400 to-zinc-100 "}>
           Welcome to the GameGrid!
           <br />
           a platform for gamers
