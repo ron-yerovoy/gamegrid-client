@@ -2,93 +2,95 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import 'daisyui'
-import Dardkmode from '../components/Dardmode'
 
-export default function Posts() {
-  const [posts, setPosts] = useState([
-    { id: 1, content: 'This is the first post!', likes: 0, comments: [] },
-    { id: 2, content: 'This is the second post!', likes: 0, comments: [] },
-  ])
+export default function Posts(userId) {
+  const [posts, setPosts] = useState([]);
+  const [newPost, setNewPost] = useState({
+    id: '',
+    date: '',
+    tag: [],
+    game: [],
+    platform: [],
+    text: '',
+  });
 
-  const handleLike = (id) => {
-    setPosts(posts.map((post) => (post.id === id ? { ...post, likes: post.likes + 1 } : post)))
-  }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewPost({ ...newPost, [name]: value });
+  };
 
-  const handleComment = (id, comment) => {
-    setPosts(
-      posts.map((post) => (post.id === id ? { ...post, comments: [...post.comments, comment] } : post))
-    )
-  }
+  const handlePosts = async (e) => {
+    e.preventDefault();
+
+    // delay for loading components
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const response = await fetch(`http://localhost:3001/api/posts/${posts.id}/insert`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      console.log('Post successfully uploaded:\n', data);
+      // Add new post to the posts array
+      setPosts([...posts, newPost]);
+      // Clear the new post form
+      setNewPost({
+        id: '',
+        date: '',
+        tag: [],
+        game: [],
+        platform: [],
+        text: '',
+      });
+      // Redirect to home page on success
+      alert(JSON.stringify(data));
+      window.location.href = `/HomePage/${data.userid}`;
+    } else {
+      alert(JSON.stringify(data));
+      console.log('Post failed to upload:\n', data.error);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col items-center">
       <Head>
         <title>Lobby</title>
       </Head>
-
-      {/* Main Content */}
-      <div className="w-full bg-gray-100 p-10">
-        <Dardkmode />
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-10 px-80">My Lobby</h1>
-        {posts.map((post) => (
-          <div key={post.id} className="bg-white p-8 rounded-2xl shadow-xl mb-10  transition duration-500 ">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="skeleton h-16 w-16 shrink-0 rounded-full bg-gray-300"></div>
-              <div className="flex flex-col gap-4">
-                <div className="skeleton h-4 w-20 bg-gray-300"></div>
-                <div className="skeleton h-4 w-28 bg-gray-300"></div>
-              </div>
-            </div>
-            <p className="text-xl mb-4">{post.content}</p>
-            <div className="flex items-center mt-4">
-              <button
-                className="btn btn-primary text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300  hover:scale-110"
-                onClick={() => handleLike(post.id)}
-              >
-                Like ({post.likes})
-              </button>
-              <CommentForm postId={post.id} handleComment={handleComment} />
-            </div>
-            <div className="mt-4 space-y-2">
-              {post.comments.map((comment, index) => (
-                <p key={index} className="border-t pt-2">
-                  {comment}
-                </p>
-              ))}
-            </div>
+      <div className="w-full max-w-lg p-4 ">
+        <form onSubmit={handlePosts} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2 " htmlFor="text">
+              Post Text
+            </label>
+            <input
+              id="text"
+              name="text"
+              type="text"
+              value={newPost.text}
+              onChange={handleInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Post
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="w-full max-w-lg">
+        {posts.map((post, index) => (
+          <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <p>{post.text}</p>
           </div>
         ))}
       </div>
     </div>
-  )
-}
-
-function CommentForm({ postId, handleComment }) {
-  const [comment, setComment] = useState('')
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (comment.trim()) {
-      handleComment(postId, comment)
-      setComment('')
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="ml-4 flex items-center">
-      <input
-        type="text"
-        className="input input-bordered flex-1 mr-2"
-        placeholder="Add a comment..."
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button
-        type="submit"
-        className="btn btn-success text-white px-6 py-3 rounded-full hover:bg-green-600 transition duration-300 transform hover:scale-110"
-      >
-        Comment
-      </button>
-    </form>
-  )
+  );
 }

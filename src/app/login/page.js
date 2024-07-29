@@ -27,15 +27,16 @@ export default function Login() {
       },
       // body: JSON.stringify({ email: email, password: password }),
     })
-    // console.log(';;;;;;;;;;;',{ email: email, password: password })
+  
     const data = await response.json()
+
     console.log(';;;;;;;;;;;', data)
 
     if (response.ok) {
       console.log('Login successful:\n', data)
       // Redirect to home page on success
       alert(JSON.stringify(data))
-      window.location.href = '/HomePage'
+      window.location.href = `/HomePage/${data.userid}`
     } else {
       alert(JSON.stringify(data))
 

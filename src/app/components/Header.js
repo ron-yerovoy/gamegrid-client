@@ -9,7 +9,6 @@ const Header = () => {
         <div className="flex items-center flex-1">
           <span className="text-2xl font-bold">Logo</span>
         </div>
-        <Dardkmode />
 
         <div className="lg:flex md:flex lg: flex-1 items center justify-end font-normal hidden">
           <div className="flex-10">
@@ -17,7 +16,6 @@ const Header = () => {
               <Link href="/HomePage">
                 <li> TempHomePage </li>
               </Link>
-
               <Link href="/login">
                 <li data-cy="login_button_in_heade_menu" className=" hover:bg-cyan-800 hover:rounded">
                   {' '}

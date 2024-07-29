@@ -14,7 +14,7 @@ export const HomeNav = () => {
             <Link href="/HomePage/LeaderBoard">
               <li> LeaderBoard </li>
             </Link>
-            <Link href="/HomePage/Lobby">
+            <Link href="/HomePage">
               <li data-cy="login_button_in_heade_menu" className=" hover:bg-cyan-800 hover:rounded">
                 {' '}
                 Lobby{' '}

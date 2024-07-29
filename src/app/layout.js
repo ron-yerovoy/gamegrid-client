@@ -15,8 +15,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-main-background bg-no-repeat bg-cover">
         <div>
-          <Header />
         </div>
+        {/* <Header /> */}
         {children}
         <div>
           <Footeri />
