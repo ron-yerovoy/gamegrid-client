@@ -2,7 +2,7 @@ import React from 'react'
 import Menu from '../components/Menu'
 import Link from 'next/link'
 import Dardkmode from '../components/Dardmode'
-export const HomeNav = () => {
+export const HomeNav = ({userId}) => {
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start  ">
@@ -14,7 +14,7 @@ export const HomeNav = () => {
             <Link href="/HomePage/LeaderBoard">
               <li> LeaderBoard </li>
             </Link>
-            <Link href="/HomePage">
+            <Link href={`/HomePage/${encodeURIComponent(userId)}`}>
               <li data-cy="login_button_in_heade_menu" className=" hover:bg-cyan-800 hover:rounded">
                 {' '}
                 Lobby{' '}

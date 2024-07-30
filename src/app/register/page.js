@@ -6,16 +6,17 @@ import { faUserPlus, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     nickname: '',
     email: '',
     password: '',
     confirmPassword: '',
     gender: '',
-    birthDate: '',
+    birth_date: '',
   })
 
+  
   const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e) => {
@@ -33,6 +34,9 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault()
+
+    const {confirmPassword, ...dataToSend} = formData
+
     if (!validatePassword(formData.password)) {
       alert(
         'Password must be at most 8 characters long and contain at least one uppercase letter and at least must contain one symbol.'
@@ -46,12 +50,12 @@ export default function Register() {
     }
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('http://localhost:3001/api/user/insert', {
+    const response = await fetch('http://localhost:3001/api/users/insert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(dataToSend),
     })
 
     const data = await response.json()
@@ -71,11 +75,6 @@ export default function Register() {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center p-6">
-      <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
-        <source src="636f8c0b-ce4b-4587-954c-5102a9708b16.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
       <div className="relative z-10 w-full max-w-lg p-8 space-y-6 bg-gray-900 bg-opacity-75 rounded-lg shadow-lg border-2 border-gray-700">
         <div className="flex justify-center mb-4">
           <FontAwesomeIcon icon={faUserPlus} size="3x" className="text-white" />
@@ -83,29 +82,29 @@ export default function Register() {
         <h1 className="text-3xl font-bold text-center text-white">Register</h1>
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-300">
+            <label htmlFor="first_name" className="block text-sm font-medium text-gray-300">
               First Name:
             </label>
             <input
-              id="firstName"
-              name="firstName"
+              id="first_name"
+              name="first_name"
               type="text"
               required
-              value={formData.firstName}
+              value={formData.first_name}
               onChange={handleChange}
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-300">
+            <label htmlFor="last_name" className="block text-sm font-medium text-gray-300">
               Last Name:
             </label>
             <input
-              id="lastName"
-              name="lastName"
+              id="last_name"
+              name="last_name"
               type="text"
               required
-              value={formData.lastName}
+              value={formData.last_name}
               onChange={handleChange}
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
             />
@@ -195,15 +194,15 @@ export default function Register() {
             </select>
           </div>
           <div>
-            <label htmlFor="birthDate" className="block text-sm font-medium text-gray-300">
+            <label htmlFor="birth_date" className="block text-sm font-medium text-gray-300">
               Birth Date:
             </label>
             <input
-              id="birthDate"
-              name="birthDate"
+              id="birth_date"
+              name="birth_date"
               type="date"
               required
-              value={formData.birthDate}
+              value={formData.birth_date}
               onChange={handleChange}
               className="w-full p-3 mt-1 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500"
             />
