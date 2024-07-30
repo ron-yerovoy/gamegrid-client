@@ -1,68 +1,98 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import 'daisyui'
+import { getSessionData } from '../HomePage/page'
 
-export default function Posts(userId) {
+const userId = getSessionData()
+export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({
-    id: '',
+    userid: userId,
     date: '',
-    tag: [],
+    tags: [],
     game: [],
     platform: [],
     text: '',
+    shared: false,
   });
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/posts/${userId}/posts`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setPosts(data.posts);
+        } else {
+          console.log('Failed to fetch posts:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, [userId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewPost({ ...newPost, [name]: value });
+    if (name === 'tags' || name === 'game' || name === 'platform') {
+      setNewPost({ ...newPost, [name]: value.split(',') });
+    } else {
+      setNewPost({ ...newPost, [name]: value });
+    }
   };
 
   const handlePosts = async (e) => {
     e.preventDefault();
-
-    // delay for loading components
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const response = await fetch(`http://localhost:3001/api/posts/${posts.id}/insert`, {
+    const response = await fetch(`http://localhost:3001/api/posts/${userId}/post/insert`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(newPost),
     });
     const data = await response.json();
+
     if (response.ok) {
-      console.log('Post successfully uploaded:\n', data);
-      // Add new post to the posts array
-      setPosts([...posts, newPost]);
-      // Clear the new post form
+      console.log(":::::::::::check",posts)
+      setPosts([newPost, ...posts]); // Add new post to the top of the posts array
       setNewPost({
-        id: '',
+        userid: userId.id,
         date: '',
-        tag: [],
+        tags: [],
         game: [],
         platform: [],
         text: '',
       });
-      // Redirect to home page on success
+
       alert(JSON.stringify(data));
-      window.location.href = `/HomePage/${data.userid}`;
     } else {
       alert(JSON.stringify(data));
       console.log('Post failed to upload:\n', data.error);
     }
+    
   };
+  console.log(':::',newPost)
 
   return (
+
     <div className="min-h-screen flex flex-col items-center">
       <Head>
         <title>Lobby</title>
       </Head>
-      <div className="w-full max-w-lg p-4 ">
+      <div className="w-full max-w-lg p-4">
         <form onSubmit={handlePosts} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
-            <label className="block text-black text-sm font-bold mb-2 " htmlFor="text">
+            <label className="block text-black text-sm font-bold mb-2" htmlFor="text">
               Post Text
             </label>
             <input
@@ -70,6 +100,45 @@ export default function Posts(userId) {
               name="text"
               type="text"
               value={newPost.text}
+              onChange={handleInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2" htmlFor="tag">
+              Tags (comma separated)
+            </label>
+            <input
+              id="tags"
+              name="tags"
+              type="text"
+              value={newPost.tags.join(',')}
+              onChange={handleInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2" htmlFor="game">
+              Games (comma separated)
+            </label>
+            <input
+              id="game"
+              name="game"
+              type="text"
+              value={newPost.game.join(',')}
+              onChange={handleInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2" htmlFor="platform">
+              Platforms (comma separated)
+            </label>
+            <input
+              id="platform"
+              name="platform"
+              type="text"
+              value={newPost.platform.join(',')}
               onChange={handleInputChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
             />
@@ -84,10 +153,14 @@ export default function Posts(userId) {
           </div>
         </form>
       </div>
+
       <div className="w-full max-w-lg">
         {posts.map((post, index) => (
-          <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            
+          <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-black">
+            <p>Text: {post.text}</p>
+            <p>Tags: {post.tags.join(', ')}</p>
+            <p>Games: {post.game.join(', ')}</p>
+            <p>Platforms: {post.platform.join(', ')}</p>
           </div>
         ))}
       </div>

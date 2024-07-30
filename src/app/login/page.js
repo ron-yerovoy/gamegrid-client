@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import NextAuth from 'next-auth/next'
+import { loginbtn } from '../actions'
 
 export default function Login() {
   const [nickMail, setEmail] = useState('')
@@ -37,7 +37,8 @@ export default function Login() {
       console.log('Login successful:\n', data)
       // Redirect to home page on success
       alert(JSON.stringify(data))
-      window.location.href = `/HomePage/${data.userid}`
+      loginbtn(data.userid)
+      window.location.href = `/HomePage`
     } else {
       alert(JSON.stringify(data))
 
