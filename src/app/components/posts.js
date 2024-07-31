@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import 'daisyui'
-import { getSessionData } from '../HomePage/page'
+import { getSessionData } from '../actions'
 
 const userId = getSessionData()
 export default function Posts() {
@@ -93,7 +93,7 @@ export default function Posts() {
         <form onSubmit={handlePosts} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-2" htmlFor="text">
-              Post Text
+              {userId ? "Post a new message" : "Login to post a new message"}
             </label>
             <input
               id="text"

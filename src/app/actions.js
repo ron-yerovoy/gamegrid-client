@@ -12,3 +12,8 @@ export async function loginbtn(sessionData) {
   })
 }
 
+export async function getSessionData() {
+  const encryptedSessionData = cookies().get('session')?.value
+  console.log(':::', typeof(encryptedSessionData))
+  return encryptedSessionData ? encryptedSessionData : null
+}

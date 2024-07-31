@@ -1,7 +1,7 @@
 'use server'
 import Head from "next/head"
 import Posts from "../components/posts"
-import { cookies } from "next/headers"
+import { getSessionData } from "../actions"
 
 export default async function HomePage() {
     return (
@@ -14,7 +14,3 @@ export default async function HomePage() {
       )
 }
 
-export async function getSessionData(req) {
-  const encryptedSessionData = cookies().get('session')?.value
-  return encryptedSessionData ? encryptedSessionData : null
-}
