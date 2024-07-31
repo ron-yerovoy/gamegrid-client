@@ -26,15 +26,12 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      // body: JSON.stringify({ email: email, password: password }),
+    
     })
   
     const data = await response.json()
 
-    console.log(';;;;;;;;;;;', data)
-
     if (response.ok) {
-      console.log('Login successful:\n', data)
       // Redirect to home page on success
       alert(JSON.stringify(data))
       loginbtn(data.userid)

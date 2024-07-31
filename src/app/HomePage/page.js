@@ -1,7 +1,7 @@
 'use server'
 import Head from "next/head"
 import Posts from "../components/posts"
-import { getSessionData } from "../actions"
+
 
 export default async function HomePage() {
     return (
@@ -9,7 +9,7 @@ export default async function HomePage() {
           <Head>
             <title>Lobby</title>
           </Head>
-          <Posts userId={getSessionData()}/>
+          <Posts/>
         </div>
       )
 }
