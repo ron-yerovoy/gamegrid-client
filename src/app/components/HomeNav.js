@@ -4,30 +4,28 @@ import Link from 'next/link'
 import Dardkmode from '../components/Dardmode'
 export const HomeNav = ({userId}) => {
   return (
-    <div className="navbar bg-base-300">
-      <div className="navbar-start  ">
+    <div className="navbar ">
+      <div className="navbar-start">
         <Menu />
       </div>
-      <div className="lg:flex md:flex lg: flex-1 items center justify-end font-normal hidden">
+      <div className="lg:flex md:flex lg: flex-1 justify-normal font-normal hidden">
         <div className="flex-10">
-          <ul className="flex gap-8 -mr-12 text-[18px]">
+          <ul className="flex gap-8 text-[18px] -ml-32">
             <Link href="/HomePage/LeaderBoard">
-              <li> LeaderBoard </li>
+              <li className=" hover:bg-cyan-800 hover:rounded"> LeaderBoard </li>
             </Link>
-            <Link href={`/HomePage/${encodeURIComponent(userId)}`}>
+            <Link href={`/HomePage`}>
               <li data-cy="login_button_in_heade_menu" className=" hover:bg-cyan-800 hover:rounded">
-                {' '}
-                Lobby{' '}
+                Lobby
               </li>
             </Link>
-            <Link href="/HomePage/Squad">
-              <li className=" hover:bg-cyan-800 hover:rounded">Squad </li>
+            <Link href="/HomePage/Squad" className=" hover:bg-cyan-800 hover:rounded navbar-end">
+              Squad
             </Link>
           </ul>
         </div>
       </div>
 
-      <div className="navbar-end flex-none gap-2">
         <div className="form-control">
           <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
         </div>
@@ -79,7 +77,6 @@ export const HomeNav = ({userId}) => {
           </ul>
         </div>
       </div>
-    </div>
   )
 }
 
