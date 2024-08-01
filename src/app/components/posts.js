@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import 'daisyui'
 import { getSessionData } from '../actions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faShare } from '@fortawesome/free-solid-svg-icons'
 
 export default function Posts() {
   const [posts, setPosts] = useState([])
@@ -42,7 +44,6 @@ export default function Posts() {
           })
           const data = await response.json()
           if (response.ok) {
-            console.log(data)
             setPosts(data.posts_list)
           } else {
             console.log('Failed to fetch posts:', data.error)
@@ -97,6 +98,19 @@ export default function Posts() {
       alert(JSON.stringify(data))
       console.log('Post failed to upload:\n', data.error)
     }
+  }
+
+  const handleLikeClick = (postIndex) => {
+    setPosts((prevPosts) => {
+      console.log(postIndex)
+      if (posts[postIndex].likes.users) {
+      }
+
+      const updatedPosts = [...prevPosts]
+      updatedPosts[postIndex].liked = !updatedPosts[postIndex].liked
+      updatedPosts[postIndex].likes.count += updatedPosts[postIndex].liked ? 1 : -1
+      return updatedPosts
+    })
   }
 
   return (
@@ -173,9 +187,26 @@ export default function Posts() {
         {posts.map((post, index) => (
           <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-black">
             <p>Text: {post.text}</p>
-            <p>Tags: {post.tags}</p>
-            <p>Games: {post.game}</p>
-            <p>Platforms: {post.platform}</p>
+            <p>Tags: {post.tags.join(', ')}</p>
+            <p>Games: {post.game.join(', ')}</p>
+            <p>Platforms: {post.platform.join(', ')}</p>
+            <div className="flex items-center justify-between mt-2">
+              <div className="flex items-center">
+                <button onClick={() => handleLikeClick(index)}>
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    className={`mr-2 transition-colors duration-300 ${
+                      post.liked ? 'text-green-500' : 'text-gray-500'
+                    }`}
+                  />
+                </button>
+                <span>{post.likes.count}</span>
+              </div>
+              <div className="flex items-center">
+                <FontAwesomeIcon icon={faShare} className="mr-2 text-gray-500" />
+                <span>Shares</span>
+              </div>
+            </div>
           </div>
         ))}
       </div>
