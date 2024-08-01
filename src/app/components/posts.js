@@ -16,6 +16,24 @@ export default function Posts() {
     shared: false,
   })
   const [userId, setUserId] = useState(null) // Add state for userId
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/posts/${userId}/posts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      if (response.ok) {
+        setPosts(data.posts_list)
+      } else {
+        console.log('Failed to fetch posts:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error)
+    }
+  }
 
   // Fetch userId when the component mounts
   useEffect(() => {
@@ -34,25 +52,6 @@ export default function Posts() {
   // Fetch posts when userId is available
   useEffect(() => {
     if (userId) {
-      const fetchPosts = async () => {
-        try {
-          const response = await fetch(`http://localhost:3001/api/posts/${userId}/posts`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          const data = await response.json()
-          if (response.ok) {
-            setPosts(data.posts_list)
-          } else {
-            console.log('Failed to fetch posts:', data.error)
-          }
-        } catch (error) {
-          console.error('Error fetching posts:', error)
-        }
-      }
-
       fetchPosts()
     }
   }, [userId]) // Dependency array includes userId
@@ -100,17 +99,69 @@ export default function Posts() {
     }
   }
 
-  const handleLikeClick = (postIndex) => {
-    setPosts((prevPosts) => {
-      console.log(postIndex)
-      if (posts[postIndex].likes.users) {
-      }
+  const handleLikeClick = async (postIndex) => {
+    if (!userId) {
+      console.error('User ID is not available')
+      return
+    }
+    const updatedPosts = [...posts]
+    const post = updatedPosts[postIndex]
 
-      const updatedPosts = [...prevPosts]
-      updatedPosts[postIndex].liked = !updatedPosts[postIndex].liked
-      updatedPosts[postIndex].likes.count += updatedPosts[postIndex].liked ? 1 : -1
-      return updatedPosts
-    })
+    // Check if the user has already liked the post
+    const userIndex = post.likes.users.indexOf(userId)
+    const isLiked = userIndex !== -1
+
+    // Update local state
+    if (isLiked) {
+      // User already liked the post, remove the like
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/posts/${posts[postIndex]._id}/${userId}/unlike`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to update like status')
+        }
+      } catch (error) {
+        console.error('Error updating like status:', error)
+      }
+      post.liked = false
+    } else {
+      // User has not liked the post yet, add the like
+      // Send the updated like status to the server
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/posts/${posts[postIndex]._id}/${userId}/like`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to update like status')
+        }
+      } catch (error) {
+        console.error('Error updating like status:', error)
+      }
+      post.liked = true
+    }
+
+    // Update the local state
+    setPosts(updatedPosts)
+    fetchPosts()
   }
 
   return (
