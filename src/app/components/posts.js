@@ -1,14 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import 'daisyui'
 import { getSessionData } from '../actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faShare } from '@fortawesome/free-solid-svg-icons'
 import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 
-
-export default function Posts() {
+export default function Posts({ keyPost }) {
   const [posts, setPosts] = useState([])
   const [newPost, setNewPost] = useState({
     tags: [],
@@ -20,11 +18,13 @@ export default function Posts() {
   const [userId, setUserId] = useState(null) // Add state for userId
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/posts/allposts`, {
+      if(keyPost==="following"){
+      const response = await fetch(`http://localhost:3001/api/posts/${userId}/${keyPost}/posts`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
+
       })
       const data = await response.json()
       if (response.ok) {
@@ -32,10 +32,31 @@ export default function Posts() {
       } else {
         console.log('Failed to fetch posts:', data.error)
       }
-    } catch (error) {
+
+    }
+    if(keyPost==="all"){
+      const response = await fetch(`http://localhost:3001/api/posts/${keyPost}posts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+      })
+      const data = await response.json()
+      if (response.ok) {
+        setPosts(data.posts_list)
+      } else {
+        console.log('Failed to fetch posts:', data.error)
+      }
+
+    }
+
+    } 
+    catch (error) {
       console.error('Error fetching posts:', error)
     }
   }
+      
 
   // Fetch userId when the component mounts
   useEffect(() => {
@@ -103,66 +124,59 @@ export default function Posts() {
   }
   const handleSaveClick = async (postIndex) => {
     if (!userId) {
-      console.error('User ID is not available');
-      return;
+      console.error('User ID is not available')
+      return
     }
-  
-    const updatedPosts = [...posts];
-    const post = updatedPosts[postIndex];
-  
+
+    const updatedPosts = [...posts]
+    const post = updatedPosts[postIndex]
+
     // Check if the user has already saved the post
-    const userIndex = post.saves.users.indexOf(userId);
-    const isSaved = userIndex !== -1;
-  
+    const userIndex = post.saves.users.indexOf(userId)
+    const isSaved = userIndex !== -1
+
     try {
-      let response;
-  
+      let response
+
       if (isSaved) {
         // User already saved the post, remove the save
-        response = await fetch(
-          `http://localhost:3001/api/posts/${post._id}/${userId}/unsave`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        response = await fetch(`http://localhost:3001/api/posts/${post._id}/${userId}/unsave`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
       } else {
         // User has not saved the post yet, add the save
-        response = await fetch(
-          `http://localhost:3001/api/posts/${post._id}/${userId}/save`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        response = await fetch(`http://localhost:3001/api/posts/${post._id}/${userId}/save`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
       }
-  
-      const data = await response.json();
-  
+
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to update save status');
+        throw new Error(data.error || 'Failed to update save status')
       }
-  
+
       // Update local state
       if (isSaved) {
-        post.saves.users.splice(userIndex, 1); // Remove user from saves array
-        post.saved = false;
+        post.saves.users.splice(userIndex, 1) // Remove user from saves array
+        post.saved = false
       } else {
-        post.saves.users.push(userId); // Add user to saves array
-        post.saved = true;
+        post.saves.users.push(userId) // Add user to saves array
+        post.saved = true
       }
-  
-      setPosts(updatedPosts); // Trigger re-render
-      fetchPosts(); // Refresh posts list
+
+      setPosts(updatedPosts) // Trigger re-render
+      fetchPosts() // Refresh posts list
     } catch (error) {
-      console.error('Error updating save status:', error);
+      console.error('Error updating save status:', error)
     }
   }
-  
 
   const handleLikeClick = async (postIndex) => {
     if (!userId) {
@@ -175,7 +189,7 @@ export default function Posts() {
     // Check if the user has already liked the post
     const userIndex = post.likes.users.indexOf(userId)
     const isLiked = userIndex !== -1
-    
+
     // Update local state
     if (isLiked) {
       // User already liked the post, remove the like
@@ -312,24 +326,24 @@ export default function Posts() {
                   <FontAwesomeIcon
                     icon={faHeart}
                     className={`mr-2 transition-colors duration-300 ${
-                      post.likes.users.indexOf(userId) !==-1 ? 'text-green-500' : 'text-gray-500'
+                      post.likes.users.indexOf(userId) !== -1 ? 'text-green-500' : 'text-gray-500'
                     }`}
                   />
                 </button>
-                
+
                 <span>{post.likes.count}</span>
               </div>
               <div className="flex items-center">
-              <button onClick={() => handleSaveClick(index)}>
-                <FontAwesomeIcon
-                  icon={faBookmark}
-                  className={`mr-2 transition-colors duration-300 ${
-                    post.saves.users.indexOf(userId) !== -1 ? 'text-blue-500' : 'text-gray-500'
-                  }`}
-                />
-              </button>
-              <span>{post.saves.count}</span>
-            </div>
+                <button onClick={() => handleSaveClick(index)}>
+                  <FontAwesomeIcon
+                    icon={faBookmark}
+                    className={`mr-2 transition-colors duration-300 ${
+                      post.saves.users.indexOf(userId) !== -1 ? 'text-blue-500' : 'text-gray-500'
+                    }`}
+                  />
+                </button>
+                <span>{post.saves.count}</span>
+              </div>
               <div className="flex items-center">
                 <FontAwesomeIcon icon={faShare} className="mr-2 text-gray-500" />
                 <span>Shares</span>
