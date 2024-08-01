@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Alertss from '../components/Alert'
-import Dardkmode from '../components/Dardmode'
 
 const Header = () => {
   return (

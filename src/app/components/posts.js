@@ -44,11 +44,28 @@ export default function Posts({ keyPost }) {
       })
       const data = await response.json()
       if (response.ok) {
-        setPosts(data.posts_list)
+        const post_list = data.post_list
+        
+        setPosts()
       } else {
         console.log('Failed to fetch posts:', data.error)
       }
 
+    }
+    else{
+      const response = await fetch(`http://localhost:3001/api/posts/${keyPost}/posts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+      })
+      const data = await response.json()
+      if (response.ok) {
+        setPosts(data.posts_list)
+      } else {
+        console.log('Failed to fetch posts:', data.error)
+      }
     }
 
     } 

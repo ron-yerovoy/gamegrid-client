@@ -1,12 +1,12 @@
 import React from 'react'
 import Menu from '../components/Menu'
 import Link from 'next/link'
-import Dardkmode from '../components/Dardmode'
+
 export const HomeNav = ({userId}) => {
   return (
     <div className="navbar ">
       <div className="navbar-start">
-        <Menu />
+        <Menu userId={userId}/>
       </div>
       <div className="lg:flex md:flex lg: flex-1 justify-normal font-normal hidden">
         <div className="flex-10">
@@ -63,16 +63,18 @@ export const HomeNav = ({userId}) => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a className="justify-between">
+              <Link href= {`/HomePage/Profile/${userId}`}className="justify-between">
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <Link href="/">
+              Logout
+              </Link>
             </li>
           </ul>
         </div>

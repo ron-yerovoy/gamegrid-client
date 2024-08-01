@@ -1,14 +1,14 @@
-import React from 'react';
-import { AiOutlineMenu } from 'react-icons/ai';
-import { FaHome } from 'react-icons/fa';
-import { CgProfile } from 'react-icons/cg';
-import { GiRank3 } from 'react-icons/gi';
-import { AiOutlineSetting } from 'react-icons/ai';
-import { FcAbout } from 'react-icons/fc';
-import { IoMdContacts } from 'react-icons/io';
-import Link from 'next/link';
+import React from 'react'
+import { AiOutlineMenu } from 'react-icons/ai'
+import { FaHome } from 'react-icons/fa'
+import { CgProfile } from 'react-icons/cg'
+import { GiRank3 } from 'react-icons/gi'
+import { AiOutlineSetting } from 'react-icons/ai'
+import { FcAbout } from 'react-icons/fc'
+import { IoMdContacts } from 'react-icons/io'
+import Link from 'next/link'
 
-const Menu = () => {
+const Menu = ({ userId }) => {
   return (
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle " />
@@ -31,7 +31,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-            <Link href="/HomePage" className="text-primary">
+            <Link href={`/HomePage/Profile/${userId}`} className="text-primary">
               <CgProfile /> My Profile
             </Link>
           </li>
@@ -55,7 +55,7 @@ const Menu = () => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu
