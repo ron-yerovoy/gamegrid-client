@@ -5,6 +5,8 @@ import 'daisyui'
 import { getSessionData } from '../actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function Posts() {
   const [posts, setPosts] = useState([])
@@ -18,7 +20,7 @@ export default function Posts() {
   const [userId, setUserId] = useState(null) // Add state for userId
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/posts/${userId}/posts`, {
+      const response = await fetch(`http://localhost:3001/api/posts/allposts`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +32,6 @@ export default function Posts() {
       } else {
         console.log('Failed to fetch posts:', data.error)
       }
-        console.log("🚀 ~ fetchPosts ~ data.posts_list:", data.posts_list)
     } catch (error) {
       console.error('Error fetching posts:', error)
     }
@@ -100,6 +101,68 @@ export default function Posts() {
       console.log('Post failed to upload:\n', data.error)
     }
   }
+  const handleSaveClick = async (postIndex) => {
+    if (!userId) {
+      console.error('User ID is not available');
+      return;
+    }
+  
+    const updatedPosts = [...posts];
+    const post = updatedPosts[postIndex];
+  
+    // Check if the user has already saved the post
+    const userIndex = post.saves.users.indexOf(userId);
+    const isSaved = userIndex !== -1;
+  
+    try {
+      let response;
+  
+      if (isSaved) {
+        // User already saved the post, remove the save
+        response = await fetch(
+          `http://localhost:3001/api/posts/${post._id}/${userId}/unsave`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      } else {
+        // User has not saved the post yet, add the save
+        response = await fetch(
+          `http://localhost:3001/api/posts/${post._id}/${userId}/save`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      }
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to update save status');
+      }
+  
+      // Update local state
+      if (isSaved) {
+        post.saves.users.splice(userIndex, 1); // Remove user from saves array
+        post.saved = false;
+      } else {
+        post.saves.users.push(userId); // Add user to saves array
+        post.saved = true;
+      }
+  
+      setPosts(updatedPosts); // Trigger re-render
+      fetchPosts(); // Refresh posts list
+    } catch (error) {
+      console.error('Error updating save status:', error);
+    }
+  }
+  
 
   const handleLikeClick = async (postIndex) => {
     if (!userId) {
@@ -253,8 +316,20 @@ export default function Posts() {
                     }`}
                   />
                 </button>
+                
                 <span>{post.likes.count}</span>
               </div>
+              <div className="flex items-center">
+              <button onClick={() => handleSaveClick(index)}>
+                <FontAwesomeIcon
+                  icon={faBookmark}
+                  className={`mr-2 transition-colors duration-300 ${
+                    post.saves.users.indexOf(userId) !== -1 ? 'text-blue-500' : 'text-gray-500'
+                  }`}
+                />
+              </button>
+              <span>{post.saves.count}</span>
+            </div>
               <div className="flex items-center">
                 <FontAwesomeIcon icon={faShare} className="mr-2 text-gray-500" />
                 <span>Shares</span>
