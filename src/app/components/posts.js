@@ -30,6 +30,7 @@ export default function Posts() {
       } else {
         console.log('Failed to fetch posts:', data.error)
       }
+        console.log("🚀 ~ fetchPosts ~ data.posts_list:", data.posts_list)
     } catch (error) {
       console.error('Error fetching posts:', error)
     }
@@ -85,7 +86,7 @@ export default function Posts() {
     const data = await response.json()
 
     if (response.ok) {
-      setPosts([newPost, ...posts]) // Add new post to the top of the posts array
+      // setPosts([newPost, ...posts]) // Add new post to the top of the posts array
       setNewPost({
         tags: [],
         game: [],
@@ -93,6 +94,7 @@ export default function Posts() {
         text: '',
       })
       alert(JSON.stringify(data))
+      fetchPosts() // Update the posts list
     } else {
       alert(JSON.stringify(data))
       console.log('Post failed to upload:\n', data.error)
@@ -110,7 +112,7 @@ export default function Posts() {
     // Check if the user has already liked the post
     const userIndex = post.likes.users.indexOf(userId)
     const isLiked = userIndex !== -1
-
+    
     // Update local state
     if (isLiked) {
       // User already liked the post, remove the like
@@ -247,7 +249,7 @@ export default function Posts() {
                   <FontAwesomeIcon
                     icon={faHeart}
                     className={`mr-2 transition-colors duration-300 ${
-                      post.liked ? 'text-green-500' : 'text-gray-500'
+                      post.likes.users.indexOf(userId) !==-1 ? 'text-green-500' : 'text-gray-500'
                     }`}
                   />
                 </button>
