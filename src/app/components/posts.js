@@ -7,6 +7,10 @@ import { faHeart, faShare } from '@fortawesome/free-solid-svg-icons'
 import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function Posts({ keyPost }) {
+  const [sharePost, setSharePost] = useState({
+    original_owner: '',
+    original_post: '',
+  })
   const [posts, setPosts] = useState([])
   const [updatedPosts, setUpdatedPosts] = useState(posts)
 
@@ -132,6 +136,7 @@ export default function Posts({ keyPost }) {
       console.log('Post failed to upload:\n', data.error)
     }
   }
+
   const handleSaveClick = async (postIndex) => {
     if (!userId) {
       console.error('User ID is not available')
@@ -186,6 +191,40 @@ export default function Posts({ keyPost }) {
     } catch (error) {
       console.error('Error updating save status:', error)
     }
+  }
+  const handleShare = async (postIndex) => {
+    if (!userId) {
+      console.error('User ID is not available')
+      return
+    }
+    const updatedPosts = [...posts]
+
+    // User already liked the post, remove the like
+    try {
+      const response = await fetch(`http://localhost:3001/api/posts/${userId}/post/share`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sharePost),
+      })
+
+      const data = await response.json()
+      if (response.ok) {
+        setSharePost({ shared_post: { original_owner: '', original_post: '' } })
+        sharePost.original_owner = posts[postIndex].userId
+        sharePost.original_post = posts[postIndex]._id
+        console.log(sharePost)
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to update like status')
+      }
+    } catch (error) {
+      console.error('Error updating like status:', error)
+    }
+    // Update the local state
+    setPosts(updatedPosts)
   }
 
   const handleLikeClick = async (postIndex) => {
@@ -422,8 +461,15 @@ export default function Posts({ keyPost }) {
                 <span>{post.saves.count}</span>
               </div>
               <div className="flex items-center">
-                <FontAwesomeIcon icon={faShare} className="mr-2 text-gray-500" />
-                <span>Shares</span>
+                <button onClick={() => handleShare(index)}>
+                  <FontAwesomeIcon
+                    icon={faShare}
+                    className={`mr-2 transition-colors duration-300 ${
+                      post.shares.users.indexOf(userId) !== -1 ? 'text-blue-500' : 'text-gray-500'
+                    }`}
+                  />
+                </button>
+                <span>{post.shares.count}</span>
               </div>
             </div>
           </div>
