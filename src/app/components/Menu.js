@@ -47,7 +47,7 @@ const Menu = ({ userId }) => {
             </Link>
           </li>
           <li>
-            <Link href="/HomePage" className="text-primary">
+            <Link href="/about" className="text-primary">
               <FcAbout /> About
             </Link>
           </li>

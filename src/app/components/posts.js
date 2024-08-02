@@ -18,62 +18,52 @@ export default function Posts({ keyPost }) {
   const [userId, setUserId] = useState(null) // Add state for userId
   const fetchPosts = async () => {
     try {
-      if(keyPost==="following"){
-      const response = await fetch(`http://localhost:3001/api/posts/${userId}/${keyPost}/posts`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-
-      })
-      const data = await response.json()
-      if (response.ok) {
-        setPosts(data.posts_list)
-      } else {
-        console.log('Failed to fetch posts:', data.error)
+      if (keyPost === 'following') {
+        const response = await fetch(`http://localhost:3001/api/posts/${userId}/${keyPost}/posts`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        const data = await response.json()
+        if (response.ok) {
+          setPosts(data.posts_list)
+        } else {
+          console.log('Failed to fetch posts:', data.error)
+        }
       }
-
-    }
-    if(keyPost==="all"){
-      const response = await fetch(`http://localhost:3001/api/posts/${keyPost}posts`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-
-      })
-      const data = await response.json()
-      if (response.ok) {
-        const post_list = data.post_list
-        
-        setPosts()
+      if (keyPost === 'all') {
+        const response = await fetch(`http://localhost:3001/api/posts/${keyPost}posts`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        const data = await response.json()
+        if (response.ok) {
+          console.log(data.posts_list)
+          setPosts(data.posts_list)
+        } else {
+          console.log('Failed to fetch posts:', data.error)
+        }
       } else {
-        console.log('Failed to fetch posts:', data.error)
+        const response = await fetch(`http://localhost:3001/api/posts/${keyPost}/posts`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        const data = await response.json()
+        if (response.ok) {
+          setPosts(data.posts_list)
+        } else {
+          console.log('Failed to fetch posts:', data.error)
+        }
       }
-
-    }
-    else{
-      const response = await fetch(`http://localhost:3001/api/posts/${keyPost}/posts`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-
-      })
-      const data = await response.json()
-      if (response.ok) {
-        setPosts(data.posts_list)
-      } else {
-        console.log('Failed to fetch posts:', data.error)
-      }
-    }
-
-    } 
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching posts:', error)
     }
   }
-      
 
   // Fetch userId when the component mounts
   useEffect(() => {
@@ -334,9 +324,9 @@ export default function Posts({ keyPost }) {
         {posts.map((post, index) => (
           <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-black">
             <p>Text: {post.text}</p>
-            <p>Tags: {post.tags.join(', ')}</p>
-            <p>Games: {post.game.join(', ')}</p>
-            <p>Platforms: {post.platform.join(', ')}</p>
+            <p>Tags: {post.tags}</p>
+            <p>Games: {post.game}</p>
+            <p>Platforms: {post.platform}</p>
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center">
                 <button onClick={() => handleLikeClick(index)}>
