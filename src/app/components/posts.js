@@ -8,8 +8,10 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function Posts({ keyPost }) {
   const [sharePost, setSharePost] = useState({
-    original_owner: '',
-    original_post: '',
+    shared_post: {
+      original_owner: '',
+      original_post: '',
+    },
   })
   const [posts, setPosts] = useState([])
   const [updatedPosts, setUpdatedPosts] = useState(posts)
@@ -197,32 +199,40 @@ export default function Posts({ keyPost }) {
       console.error('User ID is not available')
       return
     }
+
     const updatedPosts = [...posts]
 
-    // User already liked the post, remove the like
     try {
+      const sharePostData = {
+        shared_post: {
+          original_owner: posts[postIndex].user_id,
+          original_post: posts[postIndex]._id,
+        },
+      }
+
       const response = await fetch(`http://localhost:3001/api/posts/${userId}/post/share`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(sharePost),
+        body: JSON.stringify(sharePostData),
       })
 
       const data = await response.json()
       if (response.ok) {
         setSharePost({ shared_post: { original_owner: '', original_post: '' } })
-        sharePost.original_owner = posts[postIndex].userId
-        sharePost.original_post = posts[postIndex]._id
-        console.log(sharePost)
-      }
-
-      if (!response.ok) {
+        updatedPosts[postIndex] = {
+          ...updatedPosts[postIndex],
+          shared: true,
+          shared_post: sharePostData.shared_post,
+        }
+      } else {
         throw new Error(data.error || 'Failed to update like status')
       }
     } catch (error) {
-      console.error('Error updating like status:', error)
+      console.error('Error updating share status:', error)
     }
+
     // Update the local state
     setPosts(updatedPosts)
   }
