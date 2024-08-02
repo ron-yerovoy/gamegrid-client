@@ -8,6 +8,8 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function Posts({ keyPost }) {
   const [posts, setPosts] = useState([])
+  const [updatedPosts, setUpdatedPosts] = useState(posts)
+
   const [newPost, setNewPost] = useState({
     tags: [],
     game: [],
@@ -41,8 +43,9 @@ export default function Posts({ keyPost }) {
         })
         const data = await response.json()
         if (response.ok) {
-          console.log(data.posts_list)
-          setPosts(data.posts_list)
+          let post_data = data.posts_list
+          console.log(post_data)
+          setPosts(post_data)
         } else {
           console.log('Failed to fetch posts:', data.error)
         }
@@ -250,6 +253,71 @@ export default function Posts({ keyPost }) {
     fetchPosts()
   }
 
+  useEffect(() => {
+    const fetchOriginalPostsAndUserData = async () => {
+      const newPosts = await Promise.all(
+        posts.map(async (post) => {
+          let updatedPost = { ...post }
+          if (post.shared) {
+            try {
+              const response = await fetch(
+                `http://localhost:3001/api/posts/${post.shared_post.original_post}/post`,
+                {
+                  method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              )
+              const data = await response.json()
+
+              if (response.ok) {
+                updatedPost = {
+                  ...updatedPost,
+                  text: data.text,
+                  tags: data.tags,
+                  game: data.game,
+                  platform: data.platform,
+                }
+              }
+            } catch (error) {
+              console.error('Error fetching original post:', error)
+            }
+
+            try {
+              const og_userResponse = await fetch(
+                `http://localhost:3001/api/users/${post.shared_post.original_owner}/data`
+              )
+              const original_data = await og_userResponse.json()
+
+              if (og_userResponse.ok) {
+                updatedPost = { ...updatedPost, og_user: original_data.nickname }
+              }
+            } catch (error) {
+              console.error('Error fetching original user data:', error)
+            }
+          }
+
+          try {
+            const userResponse = await fetch(`http://localhost:3001/api/users/${post.user_id}/data`)
+            const userData = await userResponse.json()
+
+            if (userResponse.ok) {
+              updatedPost = { ...updatedPost, userNickname: userData.nickname }
+            }
+          } catch (error) {
+            console.error('Error fetching user data:', error)
+          }
+
+          return updatedPost
+        })
+      )
+      setUpdatedPosts(newPosts)
+    }
+
+    fetchOriginalPostsAndUserData()
+  }, [posts])
+
   return (
     <div className="min-h-screen flex flex-col items-center">
       <Head>
@@ -321,12 +389,15 @@ export default function Posts({ keyPost }) {
       </div>
 
       <div className="w-full max-w-lg">
-        {posts.map((post, index) => (
+        {updatedPosts.map((post, index) => (
           <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-black">
+            <p>
+              {post.shared ? `${post.userNickname} has shared form: ${post.og_user}` : `${post.userNickname}`}
+            </p>
             <p>Text: {post.text}</p>
-            <p>Tags: {post.tags}</p>
-            <p>Games: {post.game}</p>
-            <p>Platforms: {post.platform}</p>
+            <p>Tags: {post.tags.join(', ')}</p>
+            <p>Games: {post.game.join(', ')}</p>
+            <p>Platforms: {post.platform.join(', ')}</p>
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center">
                 <button onClick={() => handleLikeClick(index)}>
@@ -337,7 +408,6 @@ export default function Posts({ keyPost }) {
                     }`}
                   />
                 </button>
-
                 <span>{post.likes.count}</span>
               </div>
               <div className="flex items-center">
