@@ -51,6 +51,9 @@ jobs:
           command: |
             set -o pipefail
             npm run lint
+      - run:
+          name: deploy app
+          command: curl "https://api.render.com/deploy/srv-cqehv6pu0jms739cc6ug?key=WMz-rSxnwhk"
 
 workflows:
   version: 2
