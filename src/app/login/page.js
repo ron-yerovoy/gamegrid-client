@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault()
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('http://localhost:3001/api/login', {
+    const response = await fetch('https://gamegrid-server.onrender.com/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
