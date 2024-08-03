@@ -16,7 +16,6 @@ export default function Register() {
     birth_date: '',
   })
 
-  
   const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e) => {
@@ -35,7 +34,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault()
 
-    const {confirmPassword, ...dataToSend} = formData
+    const { confirmPassword, ...dataToSend } = formData
 
     if (!validatePassword(formData.password)) {
       alert(
@@ -50,7 +49,7 @@ export default function Register() {
     }
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('http://localhost:3001/api/users/insert', {
+    const response = await fetch('${process.env.NEXT_PUBLIC_SERVER_HOST}/api/users/insert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

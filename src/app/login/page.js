@@ -21,14 +21,13 @@ export default function Login() {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     // שליחת בקשת POST לשרת
-    const response = await fetch(`http://localhost:3001/api/login/${input}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/login/${input}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-    
     })
-  
+
     const data = await response.json()
 
     if (response.ok) {
