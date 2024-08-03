@@ -42,8 +42,8 @@ const Menu = ({ userId }) => {
           </li>
           <hr />
           <li>
-            <Link href="/HomePage" className="text-primary">
-              <AiOutlineSetting /> Settings
+            <Link href={`/HomePage/Profile/${userId}/edit`} className="text-primary">
+              <AiOutlineSetting /> Edit Profile
             </Link>
           </li>
           <li>

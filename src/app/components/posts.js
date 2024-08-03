@@ -5,6 +5,7 @@ import { getSessionData } from '../actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faShare } from '@fortawesome/free-solid-svg-icons'
 import { faBookmark } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 
 export default function Posts({ keyPost }) {
   const [sharePost, setSharePost] = useState({
@@ -212,11 +213,20 @@ export default function Posts({ keyPost }) {
     const updatedPosts = [...posts]
 
     try {
-      const sharePostData = {
-        shared_post: {
-          original_owner: posts[postIndex].user_id,
-          original_post: posts[postIndex]._id,
-        },
+      if (posts[postIndex].shared) {
+        const sharePostData = {
+          shared_post: {
+            original_owner: posts[postIndex].shared_post.original_owner,
+            original_post: posts[postIndex]._id,
+          },
+        }
+      } else {
+        const sharePostData = {
+          shared_post: {
+            original_owner: posts[postIndex].user_id,
+            original_post: posts[postIndex]._id,
+          },
+        }
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/posts/${userId}/post/share`, {
@@ -244,6 +254,7 @@ export default function Posts({ keyPost }) {
 
     // Update the local state
     setPosts(updatedPosts)
+    fetchPosts() // Refresh posts list
   }
 
   const handleLikeClick = async (postIndex) => {
@@ -451,13 +462,17 @@ export default function Posts({ keyPost }) {
       <div className="w-full max-w-lg">
         {updatedPosts.map((post, index) => (
           <div key={index} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-black">
-            <p>
-              {post.shared ? `${post.userNickname} has shared form: ${post.og_user}` : `${post.userNickname}`}
-            </p>
-            <p>Text: {post.text}</p>
-            <p>Tags: {post.tags.join(', ')}</p>
-            <p>Games: {post.game.join(', ')}</p>
-            <p>Platforms: {post.platform.join(', ')}</p>
+            <Link href={`/HomePage/Profile/${post.user_id}`}>
+              <p>
+                {post.shared
+                  ? `${post.userNickname} has shared form: ${post.og_user}`
+                  : `${post.userNickname}`}
+              </p>
+            </Link>
+            <p>Text: {post.text ? post.text : 'post unavailable'}</p>
+            <p>Tags: {post.tags ? post.tags.join(', ') : 'post unavailable'}</p>
+            <p>Games: {post.game ? post.game.join(', ') : 'post unavailable'}</p>
+            <p>Platforms: {post.platform ? post.platform.join(', ') : 'post unavailable'}</p>
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center">
                 <button onClick={() => handleLikeClick(index)}>
