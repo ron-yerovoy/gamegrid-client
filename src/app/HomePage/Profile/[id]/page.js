@@ -49,7 +49,7 @@ export default function ProfilePage({ params }) {
           Nickname: {userData.nickname}
         </h3>
         {/* Rank progress gauge section */}
-        <div className="rank-progress-gauge" style={{ position: 'absolute', top: '200px', left: '100px' }}>
+        <div className="rank-progress-gauge" style={{ position: 'absolute', top: '200px', left: '150px' }}>
           <h3>Rank Progress</h3>
           <progress value={userData.social.rank.exp} max={userData.social.rank.next_rank} style={{ width: '100%' }}></progress>
         <p>{userData.social.rank.exp}/ {userData.social.rank.next_rank}</p>
