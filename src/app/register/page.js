@@ -49,7 +49,7 @@ export default function Register() {
     }
 
     // שליחת בקשת POST לשרת
-    const response = await fetch('${process.env.NEXT_PUBLIC_SERVER_HOST}/api/users/insert', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/users/insert`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

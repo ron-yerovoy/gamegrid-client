@@ -1,6 +1,7 @@
 'use server'
 import Head from 'next/head'
 import Posts from '../components/posts'
+import NewPost from '../components/newPost'
 
 export default async function HomePage() {
   return (
@@ -8,7 +9,10 @@ export default async function HomePage() {
       <Head>
         <title>Lobby</title>
       </Head>
-      <Posts keyPost={'all'} />
+      <div className="">
+        <NewPost  />
+        <Posts keyPost={'all'} />
+      </div>
     </div>
   )
 }
