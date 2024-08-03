@@ -7,7 +7,7 @@ export default function About() {
   useEffect(() => {
     const fetchData = async () => {
       //   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about`)
-      const res = await fetch('https://gamegrid-server.onrender.com//api/about')
+      const res = await fetch('https://gamegrid-server.onrender.com/api/about')
       const json = await res.json()
       setData(json)
     }
